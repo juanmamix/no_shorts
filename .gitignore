@@ -1,0 +1,20 @@
+# Gradle / Android Studio
+.gradle/
+build/
+local.properties
+.idea/
+*.iml
+.DS_Store
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Firma: NUNCA commitear keystores ni contraseñas (repo público)
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.b64
+keystore.properties
+signing.properties
+.env

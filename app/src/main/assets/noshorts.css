@@ -1,0 +1,49 @@
+/*
+ * noshorts.css — Oculta los Shorts en m.youtube.com.
+ *
+ * Se inyecta en cada página (ver noshorts.js). Si YouTube cambia su HTML y vuelven a
+ * aparecer Shorts: abrí m.youtube.com en Chrome de escritorio con la vista de móvil
+ * (DevTools → Toggle device toolbar), inspeccioná el elemento que sobra y agregá su
+ * selector acá. Las reglas que no coinciden con nada no hacen daño, así que no hace
+ * falta borrar las viejas.
+ *
+ * :has() requiere Chromium 105+ (cualquier WebView actualizado lo tiene). Para lo que
+ * CSS no puede detectar (por ejemplo, un estante cuyo título dice "Shorts") está la
+ * parte en JavaScript de noshorts.js.
+ */
+
+/* ── Estantes ("shelves") de Shorts: inicio, suscripciones, búsqueda, canal ───────── */
+ytm-reel-shelf-renderer,
+ytm-shorts-lockup-view-model,
+ytm-shorts-lockup-view-model-v2,
+shorts-lockup-view-model,
+ytm-reel-item-renderer,
+ytm-rich-section-renderer:has(ytm-reel-shelf-renderer),
+ytm-rich-section-renderer:has(ytm-shorts-lockup-view-model),
+ytm-rich-section-renderer:has(ytm-shorts-lockup-view-model-v2),
+ytm-item-section-renderer:has(> ytm-reel-shelf-renderer),
+grid-shelf-view-model:has(ytm-shorts-lockup-view-model),
+grid-shelf-view-model:has(ytm-shorts-lockup-view-model-v2),
+grid-shelf-view-model:has(a[href^="/shorts/"]),
+
+/* ── Pestaña "Shorts" de la barra inferior ─────────────────────────────────────────── */
+ytm-pivot-bar-item-renderer:has(.pivot-shorts),
+ytm-pivot-bar-item-renderer:has(a[href^="/shorts"]),
+
+/* ── Cualquier item (video suelto) que enlace a /shorts/ ──────────────────────────── */
+ytm-rich-item-renderer:has(a[href^="/shorts/"]),
+ytm-video-with-context-renderer:has(a[href^="/shorts/"]),
+ytm-compact-video-renderer:has(a[href^="/shorts/"]),
+ytm-media-item:has(a[href^="/shorts/"]),
+ytm-video-card-renderer:has(a[href^="/shorts/"]),
+ytm-playlist-video-renderer:has(a[href^="/shorts/"]),
+ytm-reel-player-overlay-renderer,
+
+/* ── Pestaña "Shorts" en la página de un canal ────────────────────────────────────── */
+.single-column-browse-results-tab-bar a[href$="/shorts"],
+yt-tab-shape:has(a[href$="/shorts"]),
+
+/* ── Elementos marcados por noshorts.js (detección por texto) ──────────────────────── */
+[data-noshorts-hidden] {
+    display: none !important;
+}
