@@ -37,7 +37,7 @@ jobs:
           # Tolerante a saltos de línea, espacios o la etiqueta pegados por error.
           printf '%s' "$KEYSTORE_BASE64" | sed 's/KEYSTORE_BASE64//g' | tr -d ' \r\n\t' > "$RUNNER_TEMP/ks.b64"
           if ! base64 -d "$RUNNER_TEMP/ks.b64" > "$RUNNER_TEMP/release.jks"; then
-            echo "::error::KEYSTORE_BASE64 no es base64 válido ($(wc -c < "$RUNNER_TEMP/ks.b64") caracteres; se esperaban 5680)"; exit 1
+            echo "::error::KEYSTORE_BASE64 no es base64 válido ($(wc -c < "$RUNNER_TEMP/ks.b64") caracteres tras limpiar espacios)"; exit 1
           fi
           rm -f "$RUNNER_TEMP/ks.b64"
           echo "KEYSTORE_FILE=$RUNNER_TEMP/release.jks" >> "$GITHUB_ENV"
